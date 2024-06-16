@@ -28,7 +28,7 @@ function PaginalistaInteressados(requisicao, resposta) {
         resposta.write(`<td>${ListaInteressados[i].telefone}`);
         resposta.write('</tr>');
     }
-    resposta.write('<a href="/">Inicio</a>');
+    resposta.write('<a href="cadastro-interessado.html">Voltar</a>');
     resposta.write('<br><br>');
     resposta.write('</table>');
     resposta.write('</div>');
@@ -143,7 +143,7 @@ function cadastroInteressado(requisicao, resposta) {
 
     <!-- Link Voltar -->
     <div class="container mt-3">
-        <a href="#" class="link-voltar">Voltar</a>
+        <a href="index.html" class="link-voltar">Voltar</a>
     </div>
 
     <!-- Formulário -->

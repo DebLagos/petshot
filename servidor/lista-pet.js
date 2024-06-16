@@ -29,7 +29,7 @@ function PaginaListaPet(requisicao, resposta) {
         resposta.write(`<td>${listaPet[i].idade}`);
         resposta.write('</tr>');
     }
-    resposta.write('<a href="/">Inicio</a>');
+    resposta.write('<a href="cadastro-pet.html">Voltar</a>');
     resposta.write('<br><br>');
     resposta.write('</table>');
     resposta.write('</div>');
@@ -144,7 +144,7 @@ function cadastroPet(requisicao, resposta) {
 
     <!-- Link Voltar -->
     <div class="container mt-3">
-        <a href="#" class="link-voltar">Voltar</a>
+        <a href="index.html" class="link-voltar">Voltar</a>
     </div>
 
     <!-- Formulário -->
