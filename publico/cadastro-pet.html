@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Adoption</title>
+    <title>Adotar pet</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .content-section {
@@ -83,19 +83,19 @@
 
     <!-- Formulário -->
     <div class="container content-section">
-        <h2>Cadastre um pet</h2>
-        <form>
+        <h2>Cadastre um Pet</h2>
+        <form method="POST" action='/cadastro-pet'>
             <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="">
+                <label for="nomePet">Nome do Pet</label>
+                <input type="text" class="form-control" name="nomePet" id="nomePet" placeholder="">
             </div>
             <div class="form-group">
                 <label for="raca">Raça</label>
-                <input type="raca" class="form-control" id="raca" placeholder="">
+                <input type="text" class="form-control" name="raca" id="raca" placeholder="">
             </div>
             <div class="form-group">
                 <label for="idade">Idade em ano</label>
-                <input type="idade" class="form-control" id="idade" placeholder="">
+                <input type="text" class="form-control" name="idade" id="idade" placeholder="">
             </div>
             <button type="submit" class="btn btn-enviar">Enviar</button>
         </form>
@@ -104,6 +104,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
