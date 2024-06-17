@@ -1,10 +1,15 @@
-<!DOCTYPE html>
+
+function adotarPets(requisicao, resposta) {
+
+    resposta.write(`
+
+        <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Adoption</title>
+    <title>Adotar Pets</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .content-section {
@@ -70,7 +75,10 @@
                     <a class="nav-link" href="cadastro-pet.html">Cadastro de Pets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Adotar Pets</a>
+                    <a class="nav-link" href="/adotar-pets">Adotar Pets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Sair</a>
                 </li>
             </ul>
         </div>
@@ -83,22 +91,62 @@
 
     <!-- Formulário -->
     <div class="container content-section">
-        <h2>Cadastro de Interessados</h2>
-        <form method="POST" action='/cadastro-interessado'>
-            <div class="form-group">
-                <label for="nome">Nome Completo</label>
-                <input type="text" class="form-control" name="nomeCompleto" id="nomeCompleto" placeholder="">
+        <h2>Cadastre um Pet</h2>
+        <form method="POST" action='/adotar-pets' class="row">
+            <div class="form-group col-6">
+                <label for="nomePet">Selecione o interessado</label>
+                <select name="interessado" class="form-control">
+    `);
+
+    for (let i = 0; i < requisicao.session.ListaInteressados.length; i++) {
+        resposta.write(`<option>${requisicao.session.ListaInteressados[i].nomeCompleto}</option>`);
+    }
+    resposta.write(`
+                </select>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" id="email" placeholder="">
+            <div class="form-group col-6">
+                <label for="raca">Selecione o Pet</label>
+                <select name="pet" class="form-control">
+            `);
+
+    for (let i = 0; i < requisicao.session.listaPet.length; i++) {
+        resposta.write(`<option>${requisicao.session.listaPet[i].nomePet}</option>`);
+    }
+
+    resposta.write(`
+            </select>
             </div>
-            <div class="form-group">
-                <label for="telefone">Telefone</label>
-                <input type="number" class="form-control" name="telefone" id="telefone" placeholder="">
+            <div class="col-12">
+            <button type="submit" class="btn btn-enviar">Adotar</button>
             </div>
-            <button type="submit" class="btn btn-enviar">Enviar</button>
         </form>
+
+<div class="container">
+        <h3>Tabela de adoções</h3>
+        <table  class="table table-dark table-striped-columns">
+            <tr>
+                <th class="text-center">Interessado</th>
+                <th class="text-center">Pet</th>
+                <th class="text-center">Data da adoção</th>
+            </tr>
+            `)
+
+
+    for (let i = 0; i < requisicao.session.listaAdocoes.length; i++) {
+        resposta.write('<tr>');
+        resposta.write(`<td>${requisicao.session.listaAdocoes[i].interessado}`);
+        resposta.write(`<td>${requisicao.session.listaAdocoes[i].pet}`);
+        resposta.write(`<td>${requisicao.session.listaAdocoes[i].dataAdocao}`);
+        resposta.write('</tr>');
+    }
+
+
+    resposta.write(
+        `
+        </table>
+        </div>
+
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -110,3 +158,38 @@
 </body>
 
 </html>
+        
+        
+        
+        `)
+
+
+
+    console.log(requisicao.session);
+
+    resposta.end();
+
+}
+
+function realizarAdocao(requisicao, resposta) {
+
+
+    const interessado = requisicao.body.interessado
+    const pet = requisicao.body.pet
+    const dataAdocao = new Date();
+
+    requisicao.session.listaAdocoes.push({
+        interessado,
+        pet,
+        dataAdocao
+    })
+
+    resposta.redirect('/adotar-pets');
+}
+
+export {
+    realizarAdocao,
+    adotarPets,
+}
+
+export default adotarPets

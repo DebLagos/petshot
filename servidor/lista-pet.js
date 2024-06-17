@@ -22,17 +22,25 @@ function PaginaListaPet(requisicao, resposta) {
     resposta.write('<th class="text-center">Raça</th>');
     resposta.write('<th class="text-center">Idade em ano</th>');
     resposta.write('</tr>');
-    for (let i = 0; i < listaPet.length; i++) {
+    for (let i = 0; i < requisicao.session.listaPet.length; i++) {
         resposta.write('<tr>');
-        resposta.write(`<td>${listaPet[i].nomePet}`);
-        resposta.write(`<td>${listaPet[i].raca}`);
-        resposta.write(`<td>${listaPet[i].idade}`);
+        resposta.write(`<td>${requisicao.session.listaPet[i].nomePet}`);
+        resposta.write(`<td>${requisicao.session.listaPet[i].raca}`);
+        resposta.write(`<td>${requisicao.session.listaPet[i].idade}`);
         resposta.write('</tr>');
     }
     resposta.write('<a href="cadastro-pet.html">Voltar</a>');
     resposta.write('<br><br>');
     resposta.write('</table>');
     resposta.write('</div>');
+    if (requisicao.cookies.dataUltimoAcesso) {
+
+        resposta.write('<p>')
+        resposta.write('Seu ultimo acesso foi em ' + requisicao.cookies.dataUltimoAcesso);
+        resposta.write('<p>');
+
+    }
+
     resposta.write('</body>');
     resposta.write('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>');
     resposta.write('</html>');
@@ -48,10 +56,10 @@ function cadastroPet(requisicao, resposta) {
 
     console.log(requisicao.body);
 
-    //verificando campos preenchidos
+    //verificando campos preenchidos (post)
     if (nomePet && raca && idade) {
 
-        listaPet.push({
+        requisicao.session.listaPet.push({
 
             nomePet: nomePet,
             raca: raca,
@@ -136,7 +144,7 @@ function cadastroPet(requisicao, resposta) {
                     <a class="nav-link" href="cadastro-pet.html">Cadastro de Pets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Adotar Pets</a>
+                    <a class="nav-link" href="/adotar-pets">Adotar Pets</a>
                 </li>
             </ul>
         </div>
